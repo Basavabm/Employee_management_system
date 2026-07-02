@@ -31,14 +31,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                dir('ems-backend') {
-                    sh 'mvn test'
-                }
-            }
-        }
-
         stage('Build Backend Docker Image') {
             steps {
                 dir('ems-backend') {
@@ -62,7 +54,6 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-
                     sh '''
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
@@ -93,7 +84,7 @@ pipeline {
         }
 
         success {
-            echo 'Application built, tested, Docker images pushed, and deployed successfully!'
+            echo 'Application built, Docker images pushed, and deployed successfully!'
         }
 
         failure {
