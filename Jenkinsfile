@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub-creds'
-        DOCKERHUB_USERNAME = 'hemanthpoojary'
+        DOCKERHUB_USERNAME = 'shravyagowda'
     }
 
     stages {
@@ -34,7 +34,7 @@ pipeline {
         stage('Build Backend Docker Image') {
             steps {
                 dir('ems-backend') {
-                    sh 'docker build -t hemanthpoojary/employee-backend:v1 .'
+                    sh 'docker build -t shravyagowda/employee-backend:v1 .'
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
         stage('Build Frontend Docker Image') {
             steps {
                 dir('ems-frontend') {
-                    sh 'docker build -t hemanthpoojary/employee-frontend:v1 .'
+                    sh 'docker build -t shravyagowda/employee-frontend:v1 .'
                 }
             }
         }
@@ -57,8 +57,8 @@ pipeline {
                     sh '''
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
-                    docker push hemanthpoojary/employee-backend:v1
-                    docker push hemanthpoojary/employee-frontend:v1
+                    docker push shravyagowda/employee-backend:v1
+                    docker push shravyagowda/employee-frontend:v1
 
                     docker logout
                     '''
