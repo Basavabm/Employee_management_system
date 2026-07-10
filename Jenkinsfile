@@ -34,7 +34,7 @@ pipeline {
         stage('Build Backend Docker Image') {
             steps {
                 dir('ems-backend') {
-                    sh 'docker build -t basavabm/ems-backend:latest .'
+                    sh 'docker build -t basavabm/ems-backend:v1 .'
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
         stage('Build Frontend Docker Image') {
             steps {
                 dir('ems-frontend') {
-                    sh 'docker build -t basavabm/ems-frontend:latest .'
+                    sh 'docker build -t basavabm/ems-frontend:v1 .'
                 }
             }
         }
@@ -57,8 +57,8 @@ pipeline {
                     sh '''
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
-                    docker push basavabm/ems-backend:latest 
-                    docker push basavabm/ems-frontend:latest 
+                    docker push basavabm/ems-backend:v1 
+                    docker push basavabm/ems-frontend:v1  
 
                     docker logout
                     '''
