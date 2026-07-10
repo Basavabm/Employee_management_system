@@ -6,6 +6,12 @@ pipeline {
         DOCKERHUB_USERNAME = 'basavabm'
     }
 
+    tools {
+    jdk 'jdk21'
+    maven 'maven'
+    nodejs 'node22'
+    }
+
     stages {
 
         stage('Clone Repository') {
@@ -68,7 +74,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                dir('/var/lib/jenkins/workspace/employee-management@2') {
+                dir('/var/lib/jenkins/workspace/ems') {
                     sh '''
                     docker compose down || true
                     docker compose up -d
