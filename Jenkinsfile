@@ -6,12 +6,6 @@ pipeline {
         DOCKERHUB_USERNAME = 'basavabm'
     }
 
-    tools {
-    jdk 'jdk21'
-    maven 'maven'
-    nodejs 'NodeJS'
-    }
-
     stages {
 
         stage('Clone Repository') {
