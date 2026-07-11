@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SHIFT_REST_API_BASE_URL = 'http://localhost:8081/api/shifts';
+const SHIFT_REST_API_BASE_URL = 'http://34.93.237.73:30081/api/shifts';
 
 export const createShift = (shift) => axios.post(SHIFT_REST_API_BASE_URL, shift);
 

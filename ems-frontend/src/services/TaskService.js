@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const REST_API_BASE_URL = 'http://localhost:8081/api/tasks';
+const REST_API_BASE_URL = 'http://34.93.237.73:30081/api/tasks';
 
 // Basic CRUD operations
 export const listTasks = () => axios.get(REST_API_BASE_URL + '/tasks');
