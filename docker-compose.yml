@@ -6,7 +6,7 @@ services:
     container_name: ems-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: system
+      MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: ems
     ports:
       - "3306:3306"
@@ -15,13 +15,16 @@ services:
     networks:
       - ems-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-psystem"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot123"]
       interval: 10s
       timeout: 5s
       retries: 10
 
   backend:
-    image: hemanthpoojary/employee-backend:v1
+    build:
+      context: ./ems-backend
+      dockerfile: Dockerfile
+    image: basavabm/ems-backend:v1
     container_name: ems-backend
     depends_on:
       mysql:
@@ -29,7 +32,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ems?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: system
+      SPRING_DATASOURCE_PASSWORD: root123
     ports:
       - "8081:8081"
     restart: always
@@ -37,10 +40,14 @@ services:
       - ems-network
 
   frontend:
-    image: hemanthpoojary/employee-frontend:v1
+    build:
+      context: ./ems-frontend
+      dockerfile: Dockerfile
+    image: basavabm/ems-frontend:v1
     container_name: ems-frontend
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     ports:
       - "3000:80"
     restart: always

@@ -22,8 +22,14 @@ RUN rm -rf ./*
 # Copy the built frontend from the previous stage
 COPY --from=build /app/dist .
 
-# Expose the port used by Nginx
-EXPOSE 3000
+# Custom config so React Router routes don't 404 on refresh
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the port Nginx listens on
+EXPOSE 80
+
+HEALTHCHECK --interval=15s --timeout=5s --start-period=10s --retries=5 \
+  CMD wget -q --spider http://127.0.0.1:80 || exit 1
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
