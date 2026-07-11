@@ -66,17 +66,17 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                dir('/var/lib/jenkins/workspace/ems') {
-                    sh '''
-                    docker compose down || true
-                    docker compose up -d
-                    '''
-                }
-            }
-        }
-    }
+       stage('Deploy') {
+	   steps {
+		dir("${WORKSPACE}") {
+		    sh '''
+			 docker compose pull
+			 docker compose down || true
+			 docker compose up -d
+		       '''
+		 }
+	     }
+	}
 
     post {
         always {
