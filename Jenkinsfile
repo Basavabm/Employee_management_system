@@ -74,10 +74,11 @@ pipeline {
 			 docker compose down || true
 			 docker compose up -d
 		       '''
-		 }
-	     }
+			 }
+		     }
+		}
+	
 	}
-
     post {
         always {
             echo 'Pipeline execution completed.'
